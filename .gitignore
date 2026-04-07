@@ -1,0 +1,73 @@
+# ============================
+# Unreal Engine - Best Practice
+# ============================
+
+# Ignore user-specific files
+Saved/
+Intermediate/
+DerivedDataCache/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+*.log
+*.tlog
+*.tmp
+*.temp
+*.cache
+*.bak
+
+# Ignore build output
+Binaries/
+Build/*/Binaries/
+Build/*/Intermediate/
+
+# Ignore compiled shaders
+Shaders/WorkingDirectory/
+
+# Ignore autosaves & backups
+Saved/Autosaves/
+Saved/Backup/
+
+# Ignore config that should stay local
+Saved/Config/Windows/
+Saved/Config/Linux/
+Saved/Config/Mac/
+
+# Ignore generated project files
+*.opensdf
+*.sdf
+*.sln
+*.xcodeproj
+*.xcworkspace
+*.VC.db
+*.VC.opendb
+
+# Ignore Unreal Build Tool files
+*.target
+*.modules
+*.manifest
+*.receipt
+
+# Ignore crash reports
+Saved/Crashes/
+
+# Ignore Derived Data Cache (optional but recommended)
+DerivedDataCache/
+
+# Ignore local plugins build artifacts
+Plugins/*/Intermediate/
+Plugins/*/Binaries/
+
+# Ignore Mac / Linux system files
+.DS_Store
+Thumbs.db
+
+# ============================
+# Keep these folders!
+# ============================
+!Config/
+!Content/
+!Source/
+!Plugins/
