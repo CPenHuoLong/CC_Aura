@@ -3,7 +3,9 @@
 
 #include "Character/AuraCharacter.h"
 
+#include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/AuraPlayerState.h"
 
 AAuraCharacter::AAuraCharacter()
 {
@@ -16,5 +18,38 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationPitch=false;
 	bUseControllerRotationRoll=false;
 	bUseControllerRotationYaw=false;
+	
+}
+
+void AAuraCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	//确保 ASC 和属性集在所有端都正确绑定。
+	InitAbilityActorInfo();
+}
+
+void AAuraCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	//确保 ASC 和属性集在所有端都正确绑定。
+	InitAbilityActorInfo();
+}
+
+void AAuraCharacter::InitAbilityActorInfo()
+{
+	//拿到当前角色的 PlayerState
+	AAuraPlayerState* AuraPlayerState=GetPlayerState<AAuraPlayerState>();
+	if (AuraPlayerState)
+	{
+		/*调用 InitAbilityActorInfo(AuraPlayerState, this)，把 OwnerActor 设置为 PlayerState，AvatarActor 设置为角色本身。
+		OwnerActor → 谁拥有能力系统（PlayerState，保证网络复制正确）。
+		AvatarActor → 谁在场景里表现这些能力（角色本身）。*/
+		AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState,this);
+		//初始化 AbilitySystemComponent：
+		AbilitySystemComponent=AuraPlayerState->GetAbilitySystemComponent();
+		AttributeSet=AuraPlayerState->GetAttributeSet();
+	}
 	
 }
