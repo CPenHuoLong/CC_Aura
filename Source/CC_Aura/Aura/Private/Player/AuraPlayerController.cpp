@@ -62,8 +62,10 @@ void AAuraPlayerController::BeginPlay()
 	check(AuraContext);//检查是否在蓝图设置输入指针
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem=ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(AuraContext,0);
+	if (Subsystem)
+	{
+		Subsystem->AddMappingContext(AuraContext,0);
+	}
 
 	bShowMouseCursor=true;
 	DefaultMouseCursor=EMouseCursor::Default;

@@ -31,6 +31,7 @@ void AAuraEffectActor::BeginOverLap(UPrimitiveComponent* OverlappedComponent, AA
 		//这里返回的是 const UAuraAttributeSet*，所以不能直接修改。使用 const_cast 去掉 const 限定，把它变成可修改的指针。
 		UAuraAttributeSet* MutableAuraAttributeSet=const_cast<UAuraAttributeSet*>(AuraAttributeSet);
 		MutableAuraAttributeSet->SetHealth(AuraAttributeSet->GetHealth() + 25.f);
+		MutableAuraAttributeSet->SetMana(AuraAttributeSet->GetMana() - 25.f);
 		Destroy();
 	}
 }
