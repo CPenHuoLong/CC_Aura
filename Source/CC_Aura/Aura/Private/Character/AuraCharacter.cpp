@@ -4,6 +4,7 @@
 #include "Character/AuraCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -49,6 +50,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 		OwnerActor → 谁拥有能力系统（PlayerState，保证网络复制正确）。
 		AvatarActor → 谁在场景里表现这些能力（角色本身）。*/
 		AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState,this);
+		Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
 		//初始化 AbilitySystemComponent：
 		AbilitySystemComponent=AuraPlayerState->GetAbilitySystemComponent();
 		AttributeSet=AuraPlayerState->GetAttributeSet();

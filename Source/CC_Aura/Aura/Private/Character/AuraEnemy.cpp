@@ -41,6 +41,11 @@ void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
+	InitAbilityActorInfo();
+}
+
+void AAuraEnemy::InitAbilityActorInfo()
+{
 	/*InOwnerActor
 	逻辑上的“拥有者”Actor。通常是玩家控制器（PlayerController）或者角色类（Character）。用来标识谁真正拥有这个 AbilitySystemComponent。
 	InAvatarActor
@@ -48,5 +53,5 @@ void AAuraEnemy::BeginPlay()
 	InitAbilityActorInfo 的作用就是 把能力系统组件和具体的游戏对象绑定起来，明确：
 	谁拥有这个能力系统（OwnerActor） 在场景里表现这些能力（AvatarActor） 这是 GAS 初始化的关键步骤，没有这一步，技能和属性不会正确工作。*/
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
-	
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 }
