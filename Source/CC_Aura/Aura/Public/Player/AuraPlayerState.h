@@ -20,15 +20,24 @@ class CC_AURA_API AAuraPlayerState : public APlayerState, public IAbilitySystemI
 	
 public:
 	AAuraPlayerState();
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
 
+	FORCEINLINE int32 GetPlayerLevel() const {return Level ;}
 protected:
 
 	//能力系统组件  管理角色的技能（Gameplay Abilities） 管理属性（AttributeSets）管理效果（Gameplay Effects）处理技能冷却、消耗、触发条件等逻辑
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	//用来定义和存储角色的数值属性 生命值 (Health) 魔法值 (Mana) 攻击力、防御力等
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	
+private:
+	UPROPERTY(VisibleAnywhere,ReplicatedUsing=ONRep_Level)
+	int32 Level=1;
+
+	UFUNCTION()
+	void OnRep_Level(int32 OldLevel);
 };
