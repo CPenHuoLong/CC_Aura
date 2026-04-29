@@ -43,6 +43,12 @@ struct FEffectProperties
 	
 };
 
+/*	typedef TBaseStaticDelegateInstance<FGameplayAttribute(),FDefaultDelegateUserPolicy>::FFuncPtr FAttributeFuncPtr;
+	TBaseStaticDelegateInstance<FGameplayAttribute(),FDefaultDelegateUserPolicy>::FFuncPtr是UE委托系统里“静态函数指针”
+	指向返回 FGameplayAttribute 的静态函数”的函数指针类型*/
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T,FDefaultDelegateUserPolicy>::FFuncPtr;
+
 /**
  * 
  */
@@ -61,6 +67,8 @@ public:
 	//当GameplayEffect 已经成功执行并修改了属性之后，在这里处理后续逻辑。
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
+	TMap<FGameplayTag,TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
+	
 	/*主要属性*/
 
 	//力量
