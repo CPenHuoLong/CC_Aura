@@ -30,6 +30,7 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 
 	//确保 ASC 和属性集在所有端都正确绑定。
 	InitAbilityActorInfo();
+	AddCharacterAbilities();
 }
 
 void AAuraCharacter::OnRep_PlayerState()
@@ -38,6 +39,7 @@ void AAuraCharacter::OnRep_PlayerState()
 
 	//确保 ASC 和属性集在所有端都正确绑定。
 	InitAbilityActorInfo();
+	
 }
 
 int32 AAuraCharacter::GetPlayerLevel()

@@ -8,6 +8,7 @@
 #include "Interaction/CombatInterface.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayAbility;
 class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
@@ -31,6 +32,11 @@ protected:
 
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+	//武器尖端插槽名字
+	UPROPERTY(EditAnywhere,Category="Combat")
+	FName WeaponTipSocketName;
+
+	virtual FVector GetCombatSocketLocation() override;
 
 	//能力系统组件  管理角色的技能（Gameplay Abilities） 管理属性（AttributeSets）管理效果（Gameplay Effects）处理技能冷却、消耗、触发条件等逻辑
 	UPROPERTY()
@@ -52,5 +58,12 @@ protected:
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const ;
 	//初始化属性
 	void InitializeDefaultAttributes() const ;
+
+	void AddCharacterAbilities();
+	
+private:
+
+	UPROPERTY(EditAnywhere,Category="Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 	
 };
